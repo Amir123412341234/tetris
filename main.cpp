@@ -119,8 +119,8 @@ public:
         Figure figure;
         figure.items.push_back(Position(7, 1));
         figure.items.push_back(Position(8, 2));
-        figure.items.push_back(Position(7, 1));
-        figure.items.push_back(Position(8, 2));
+        figure.items.push_back(Position(9, 1));
+        figure.items.push_back(Position(8, 1));
         return figure;
     }
     Figure random_figure() {
@@ -146,6 +146,13 @@ public:
             figure.move_right(gf_h, gf_w);
         }
         figure.move_down(gf_h, gf_w);
+        if(figure.move_down(gf_h, gf_w) == false){
+            for (int i = 0; i < figure.items.size(); i++){
+                Position item = figure.items[i];
+                gamefield[item.ver_pos][item.hor_pos] = '@';
+            }
+            figure = random_figure();
+        }
         system("cls");
         print();
         // system("timeout 1 > NUL");
